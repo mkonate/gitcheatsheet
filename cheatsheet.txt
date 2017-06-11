@@ -1,4 +1,36 @@
 Fixing Common Mistakes and Undoing bad commits:
 
+
 To undo changes to a file that is not staged, you can do:
-git checkout <filename>
+git checkout -- <filename>
+
+
+Fix bad commit message
+git commit --amend -m '<new message>'
+This changes the git history. This is problematique in shared projects...
+
+Forgot to add a file to our previous commit
+git add <file>
+git commit --amend
+
+
+Been committing to the wrong branch:
+git checkout correct-branch
+git cherry-pick <hash>
+git checkout wrong-branch
+git reset --hard <hash>
+git clean -fd
+
+
+git reflog
+git revert hash
+This does not rewrite history. It makes a new commit and reverts the changes of a previous commit
+
+git stash save "a good message to remember what we did"
+git stash list
+git stash apply stash{0} //Doesn't remove the stash from the stash list
+git stash pop //applies the top stash and removes it from the stash list
+git stash drop stash{0} //removes the stash from the stash list without applying it
+git stash clear // removes all the stashes. Be careful with this one :-)
+
+
