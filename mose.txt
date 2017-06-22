@@ -1,0 +1,32 @@
+Create a non-root user on your server with sudo priviledges:
+------------------------------------------------------------
+adduser <username>
+usermod -aG sudo <username> (-aG means append Groups)
+su - <username>
+mkdir ~/.ssh
+chmod 700 ~/.ssh (make this directory only accessible to our user)
+vim ~/.ssh/authorized_keys (ssh keys authorized to login) 
+paste the content of your ~/.ssh/id_rsa.pub in it
+save and close
+chmod 600 ~/.ssh/authorized_keys
+exit server and make sure you can login with your newly create user
+ssh <username>@server_ip
+sudo vim /etc/ssh/sshd_config
+PermitRootLogin yes -> PermitRootLogin no
+make sure: PasswordAuthentication no (this is to prevent brut force attacks)
+Reload sshd: sudo systemctl reload sshd
+
+Basic firewall
+only allow ssh, http and https using the ufw tool
+sudo ufw allow OpenSSH
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+sudo ufw status
+
+Install let's encrypt
+First install bc
+sudo apt-get install bc
+
+
+
